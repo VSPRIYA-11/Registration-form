@@ -1,0 +1,254 @@
+:root {
+    --forest: #1B3B2B;
+    --forest-light: #2C5A43;
+    --sand: #E6DFD5;
+    --sand-light: #F3EFE8;
+    --sage: #8A9A86;
+    --sage-dark: #5C6B58;
+    --orange: #C85A32;
+    --orange-dark: #A64622;
+    --card: #FBF9F6;
+    --white: #FFFFFF;
+}
+
+body {
+    font-family: "Segoe UI", Arial, sans-serif;
+    background: linear-gradient(135deg, #E6DFD5, #D9D0C2);
+    min-height: 100vh;
+    margin: 0;
+    padding: 30px 15px;
+    color: var(--forest);
+    line-height: 1.5;
+}
+
+.container {
+    max-width: 650px;
+    margin: 0 auto;
+    background-color: var(--card);
+    padding: 30px;
+    border-radius: 12px;
+    border-top: 5px solid var(--forest);
+    box-shadow: 0 10px 30px rgba(27, 59, 43, 0.18);
+}
+
+h1 {
+    margin-top: 0;
+    color: var(--forest);
+}
+
+h2 {
+    margin-top: 30px;
+    padding-bottom: 6px;
+    color: var(--forest);
+    border-bottom: 2px solid var(--sage);
+}
+
+a {
+    color: var(--orange);
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+a:hover {
+    color: var(--orange-dark);
+    text-decoration: underline;
+}
+
+/* ---------- Forms ---------- */
+
+.field {
+    margin-bottom: 18px;
+}
+
+label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 600;
+    color: var(--sage-dark);
+}
+
+label.inline {
+    display: inline-block;
+    margin: 0 8px 8px 0;
+    padding: 6px 12px;
+    font-weight: normal;
+    color: var(--forest);
+    background-color: var(--sand);
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.2s;
+}
+
+label.inline:hover {
+    background-color: #D5CCBD;
+    transform: translateY(-1px);
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="date"],
+input[type="tel"],
+input[type="url"],
+input[type="time"],
+select,
+textarea {
+    width: 100%;
+    padding: 10px 12px;
+    font-size: 15px;
+    color: var(--forest);
+    background-color: var(--white);
+    border: 1px solid var(--sage);
+    border-radius: 8px;
+    box-sizing: border-box;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+input:hover,
+select:hover,
+textarea:hover {
+    border-color: var(--forest-light);
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    outline: none;
+    border-color: var(--forest);
+    box-shadow: 0 0 0 3px rgba(138, 154, 134, 0.45);
+}
+
+input:disabled {
+    background-color: var(--sand-light);
+    color: var(--sage-dark);
+    cursor: not-allowed;
+}
+
+input[type="radio"],
+input[type="checkbox"],
+input[type="range"] {
+    accent-color: var(--forest);
+}
+
+input[type="range"] {
+    width: 100%;
+}
+
+input[type="file"] {
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+    border: 2px dashed var(--sage);
+    border-radius: 8px;
+    background-color: var(--sand-light);
+    cursor: pointer;
+    transition: border-color 0.2s, background-color 0.2s;
+}
+
+input[type="file"]:hover {
+    border-color: var(--orange);
+    background-color: var(--sand);
+}
+
+/* ---------- Buttons ---------- */
+
+button,
+.button {
+    display: inline-block;
+    padding: 10px 22px;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--white);
+    background-color: var(--orange);
+    border: none;
+    border-radius: 8px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.2s, box-shadow 0.2s;
+}
+
+button:hover,
+.button:hover {
+    color: var(--white);
+    background-color: var(--orange-dark);
+    text-decoration: none;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 14px rgba(200, 90, 50, 0.35);
+}
+
+button:active,
+.button:active {
+    transform: translateY(0);
+    box-shadow: none;
+}
+
+button.secondary,
+.button.secondary {
+    background-color: var(--forest);
+}
+
+button.secondary:hover,
+.button.secondary:hover {
+    background-color: var(--forest-light);
+    box-shadow: 0 6px 14px rgba(27, 59, 43, 0.35);
+}
+
+.buttons {
+    margin-bottom: 20px;
+}
+
+/* ---------- Messages ---------- */
+
+.message {
+    padding: 12px 15px;
+    margin-bottom: 20px;
+    color: var(--forest);
+    background-color: var(--sand);
+    border-left: 4px solid var(--orange);
+    border-radius: 6px;
+}
+
+/* ---------- Profile page ---------- */
+
+.avatar {
+    width: 130px;
+    height: 130px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 4px solid var(--sage);
+    display: block;
+    margin-bottom: 12px;
+    box-shadow: 0 4px 12px rgba(27, 59, 43, 0.25);
+}
+
+.file-item {
+    padding: 12px;
+    margin-bottom: 10px;
+    background-color: var(--sand-light);
+    border: 1px solid var(--sage);
+    border-radius: 8px;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.file-item:hover {
+    border-color: var(--forest);
+    box-shadow: 0 4px 12px rgba(27, 59, 43, 0.15);
+}
+
+.file-item p {
+    margin: 0 0 6px 0;
+}
+
+audio,
+video {
+    max-width: 100%;
+    margin-top: 6px;
+}
+
+/* ---------- Small screens ---------- */
+
+@media (max-width: 600px) {
+    .container {
+        padding: 20px;
+    }
+}

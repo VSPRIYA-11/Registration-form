@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<div class="container">
+    <h1>My Profile</h1>
+
+    {% for message in get_flashed_messages() %}
+    <p class="message">{{ message }}</p>
+    {% endfor %}
+
+    <div class="buttons">
+        <a class="button" href="{{ url_for('edit_profile') }}">Edit Profile</a>
+        <a class="button secondary" href="{{ url_for('logout') }}">Logout</a>
+    </div>
+
+    {% if user.profile_picture %}
+    <img class="avatar" src="{{ url_for('view_file', filename=user.profile_picture) }}" alt="Profile picture">
+    {% endif %}
+
+    <h2>Personal Information</h2>
+    <p><strong>Full Name:</strong> {{ user.full_name }}</p>
+    <p><strong>Username:</strong> {{ user.username }}</p>
+    <p><strong>Email:</strong> {{ user.email }}</p>
+    <p><strong>Phone:</strong> {{ user.phone }}</p>
+    <p><strong>Date of Birth:</strong> {{ user.date_of_birth }}</p>
+    <p><strong>Gender:</strong> {{ user.gender }}</p>
+
+    <h2>Address</h2>
+    <p><strong>Country:</strong> {{ user.country }}</p>
+    <p><strong>State:</strong> {{ user.state }}</p>
+    <p><strong>Address:</strong> {{ user.address }}</p>
+
+    <h2>Education</h2>
+    <p><strong>Department:</strong> {{ user.department }}</p>
+    <p><strong>Year of Study:</strong> {{ user.year_of_study }}</p>
+
+    <h2>Skills</h2>
+    <p><strong>Selected Skills:</strong> {{ user.skills or "-" }}</p>
+    <p><strong>Skill Level:</strong> {{ user.skill_level }}</p>
+
+    <h2>Additional Information</h2>
+    <p><strong>Portfolio URL:</strong> {{ user.portfolio_url or "-" }}</p>
+    <p><strong>Experience Level:</strong> {{ user.experience }} / 10</p>
+    <p><strong>Preferred Contact Time:</strong> {{ user.preferred_contact_time or "-" }}</p>
+
+    <h2>Upload a File</h2>
+    <form method="POST" action="{{ url_for('upload') }}" enctype="multipart/form-data">
+        <div class="field">
+            <label for="category">File Category</label>
+            <select id="category" name="category" required>
+                <option value="">-- Select --</option>
+                {% for name, extensions in categories.items() %}
+                <option value="{{ name }}">{{ name.replace("_", " ").title() }} ({{ extensions | join(", ") }})</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="field">
+            <label for="file">Choose File</label>
+            <input type="file" id="file" name="file" required>
+        </div>
+
+        <button type="submit">Upload</button>
+    </form>
+
+    <h2>Uploaded Files</h2>
+    {% if files %}
+        {% for file in files %}
+        <div class="file-item">
+            <p>
+                <strong>{{ file.category.replace("_", " ").title() }}:</strong> {{ file.original_filename }}
+                <br>
+                <a href="{{ url_for('view_file', filename=file.stored_filename) }}" target="_blank">View</a>
+                |
+                <a href="{{ url_for('view_file', filename=file.stored_filename, download=1) }}">Download</a>
+            </p>
+
+            {% if file.category == "audio" %}
+            <audio controls src="{{ url_for('view_file', filename=file.stored_filename) }}"></audio>
+            {% elif file.category == "video" %}
+            <video controls width="320" src="{{ url_for('view_file', filename=file.stored_filename) }}"></video>
+            {% endif %}
+        </div>
+        {% endfor %}
+    {% else %}
+        <p>No files uploaded yet.</p>
+    {% endif %}
+</div>
+</body>
+</html>

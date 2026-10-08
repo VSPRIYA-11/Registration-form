@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registeration form</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<div class="container">
+    <h1><center>Registration Form</center></h1>
+
+    {% for message in get_flashed_messages() %}
+    <p class="message">{{ message }}</p>
+    {% endfor %}
+
+
+    {% macro select_field(name, label, items) %}
+    <div class="field">
+        <label for="{{ name }}">{{ label }}</label>
+        <select id="{{ name }}" name="{{ name }}" required>
+            <option value="">-- Select --</option>
+            {% for item in items %}
+            <option value="{{ item }}" {% if user.get(name) == item %}selected{% endif %}>{{ item }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    {% endmacro %}
+
+    <form method="POST" action="{{ url_for('register') }}" enctype="multipart/form-data">
+        <input type="hidden" name="form_name" value="registration">
+
+        <div class="field">
+            <label for="full_name">Full Name</label>
+            <input type="text" id="full_name" name="full_name" value="{{ user.full_name }}" required>
+        </div>
+
+        <div class="field">
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" value="{{ user.username }}" required>
+        </div>
+
+        <div class="field">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" value="{{ user.email }}" required>
+        </div>
+
+        <div class="field">
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" minlength="6" required>
+        </div>
+
+        <div class="field">
+            <label for="date_of_birth">Date of Birth</label>
+            <input type="date" id="date_of_birth" name="date_of_birth" value="{{ user.date_of_birth }}" required>
+        </div>
+
+        <div class="field">
+            <label for="phone">Phone Number</label>
+            <input type="tel" id="phone" name="phone" pattern="[0-9]{10}" value="{{ user.phone }}" required>
+        </div>
+
+        <div class="field">
+            <p>Gender</p>
+            {% for item in options.genders %}
+            <label class="inline">
+                <input type="radio" name="gender" value="{{ item }}" {% if user.gender == item %}checked{% endif %} required> {{ item }}
+            </label>
+            {% endfor %}
+        </div>
+
+        {{ select_field("country", "Country", options.countries) }}
+        {{ select_field("state", "State", options.states) }}
+
+        <div class="field">
+            <label for="address">Address</label>
+            <textarea id="address" name="address" rows="3" required>{{ user.address }}</textarea>
+        </div>
+
+        {{ select_field("department", "Department", options.departments) }}
+        {{ select_field("year_of_study", "Year of Study", options.years) }}
+
+        <div class="field">
+            <p>Skills</p>
+            {% for item in options.skills %}
+            <label class="inline">
+                <input type="checkbox" name="skills" value="{{ item }}" {% if item in (user.skills or '') %}checked{% endif %}> {{ item }}
+            </label>
+            {% endfor %}
+        </div>
+
+        <div class="field">
+            <p>Skill Level</p>
+            {% for item in options.levels %}
+            <label class="inline">
+                <input type="radio" name="skill_level" value="{{ item }}" {% if user.skill_level == item %}checked{% endif %} required> {{ item }}
+            </label>
+            {% endfor %}
+        </div>
+
+        <div class="field">
+            <label for="portfolio_url">Portfolio URL</label>
+            <input type="url" id="portfolio_url" name="portfolio_url" value="{{ user.portfolio_url }}">
+        </div>
+
+        <div class="field">
+            <label for="experience">Experience Level (0 - 10)</label>
+            <input type="range" id="experience" name="experience" min="0" max="10" value="{{ user.get('experience', 5) }}">
+        </div>
+
+        <div class="field">
+            <label for="preferred_contact_time">Preferred Contact Time</label>
+            <input type="time" id="preferred_contact_time" name="preferred_contact_time" value="{{ user.preferred_contact_time }}">
+        </div>
+
+        <div class="field">
+            <label for="profile_picture">Profile Picture (JPG, JPEG, PNG - optional)</label>
+            <input type="file" id="profile_picture" name="profile_picture" accept=".jpg,.jpeg,.png">
+        </div>
+
+        <button type="submit">Register</button>
+        <button type="reset" class="secondary">Clear</button>
+    </form>
+
+    <p>Already have an account? <a href="{{ url_for('login') }}">Login</a></p>
+</div>
+</body>
+</html>
